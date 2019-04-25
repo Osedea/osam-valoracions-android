@@ -386,18 +386,10 @@ public class RateMeMaybe implements RateMeMaybeFragment.RMMFragInterface {
 
     private class GetParamsAsyncTask extends AsyncTask<Void, Void, ParamsDto> {
 
-        private ProgressDialog progressDialog;
         private boolean forceShow;
 
         public GetParamsAsyncTask(Activity mActivity, boolean forceShow) {
-            progressDialog = new ProgressDialog(mActivity);
             this.forceShow = forceShow;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setCancelable(false);
-            progressDialog.show();
         }
 
         @Override
@@ -455,14 +447,7 @@ public class RateMeMaybe implements RateMeMaybeFragment.RMMFragInterface {
                     }
                 }
             }
-            if (isActivityAvailable(mActivity)) {
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                    progressDialog = null;
-                }
-            } else {
-                mListener.handleError();
-            }
+
             if (isActivityAvailable(mActivity)) {
                 if (forceShow) {
                     showDialog();
